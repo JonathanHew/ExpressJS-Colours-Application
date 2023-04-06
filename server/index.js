@@ -61,3 +61,23 @@ app.post("/colors", async (req, res) => {
     });
   }
 });
+
+//Modifies colour id (creates one if it doesn't already exist). Response contains the URL for this newly created resource.
+app.put("/colors/:id", async (req, res) => {
+    const { id } = req.params;
+    const { hexString, rgb, hsl, name } = req.body;
+    try {
+      if (hexString && rgb && hsl && name) {
+        colors[id] = {colorId: id, hexString: hexString, rgb: rgb, hsl: hsl, name: name};
+        return res.status(201).json({
+          url: `localhost:5004/colors/${id}`
+        });
+      } else {
+        throw new Error("Please do not leave any field blank!");
+      }
+    } catch (err) {
+      return res.status(400).json({
+        err: err.message,
+      });
+    }
+  });

@@ -17,13 +17,14 @@ app.listen(5004, () => {
 
 //routes
 
-//gets the list of all colours and their details
+//Gets the list of all colours and their details
 app.get("/colors", async (req, res) => {
   return res.status(200).json({
     colors,
   });
 });
-//gets the details of colour with colorId of id
+
+//Gets the details of colour with colorId of id
 app.get("/colors/:id", (req, res) => {
   try {
     const { id } = req.params;
@@ -35,13 +36,28 @@ app.get("/colors/:id", (req, res) => {
       color,
     });
   } catch (err) {
-    console.error(err.message);
     return res.status(404).json({
-        err: err.message
-    })
+      err: err.message,
+    });
   }
 });
 
+//Creates a new colour with the details provided. Response contains the URI for this newly created resource
 app.post("/colors", async (req, res) => {
   const id = colors.length;
+  const { hexString, rgb, hsl, name } = req.body;
+  try {
+    if (hexString && rgb && hsl && name) {
+      colors[id] = {colorId: id, hexString: hexString, rgb: rgb, hsl: hsl, name: name};
+      return res.status(201).json({
+        url: `localhost:5004/colors/${id}`
+      });
+    } else {
+      throw new Error("Please do not leave any field blank!");
+    }
+  } catch (err) {
+    return res.status(400).json({
+      err: err.message,
+    });
+  }
 });

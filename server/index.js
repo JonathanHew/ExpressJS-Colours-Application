@@ -19,15 +19,29 @@ app.listen(5004, () => {
 
 //gets the list of all colours and their details
 app.get("/colors", async (req, res) => {
-  res.json({
-    colors
+  return res.status(200).json({
+    colors,
   });
 });
 //gets the details of colour with colorId of id
 app.get("/colors/:id", (req, res) => {
-  const id = req.params.id;
-  const color = colors.find((c) => (c.colorId == id));
-  res.json({
-    color
-  });
+  try {
+    const { id } = req.params;
+    const color = colors.find((c) => c.colorId == id);
+    if (color == undefined) {
+      throw new Error("Color does not exist!");
+    }
+    return res.status(200).json({
+      color,
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(404).json({
+        err: err.message
+    })
+  }
+});
+
+app.post("/colors", async (req, res) => {
+  const id = colors.length;
 });

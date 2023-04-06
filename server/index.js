@@ -1,11 +1,16 @@
+//import colors JSON as object
+const colors = require("./colors-object/colours.json");
+
+// express and cors setup
 const express = require("express");
 const app = express();
 const cors = require("cors");
 
-//middleware 
+//middleware
 app.use(cors());
 app.use(express.json());
 
-app.listen(5002, () => {
-    console.log("server has started on port 5002!");
-})
+// assign port 5004 for this server
+app.listen(5004, () => {
+  console.log("server has started on port 5004!");
+});

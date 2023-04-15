@@ -7,16 +7,34 @@ axios.defaults.withCredentials = true;
 const ColorForm = () => {
   const [colors, setColors] = useState({});
   const [loading, setLoading] = useState(true);
-  const [index, setIndex] = useState(20);
+  const [index, setIndex] = useState(0);
+  const [values, setValues] = useState({
+    id: "",
+    name: "",
+    hex: "",
+    rgb: "",
+    hsl: "",
+  });
 
   useEffect(() => {
     (async () => {
       await axios.get("http://localhost:5004/colors/", {}).then((res) => {
         setColors(res.data.colors);
+        setValues({
+          id: res.data.colors[index].colorId,
+          name: res.data.colors[index].name,
+          hex: res.data.colors[index].hexString,
+          rgb: JSON.stringify(res.data.colors[index].rgb),
+          hsl: JSON.stringify(res.data.colors[index].hsl),
+        });
       });
       setLoading(false);
     })();
   }, []);
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   return loading ? (
     <h1>Loading ...</h1>
@@ -33,8 +51,11 @@ const ColorForm = () => {
           <input
             type="number"
             className="form-control m-auto"
-            id="colorInput"
-            style={{width: "300px"}}
+            id="id"
+            name="id"
+            value={values.id}
+            onChange={(e) => onChange(e)}
+            style={{ width: "300px" }}
           />
         </div>
         <div class="mb-3">
@@ -44,8 +65,11 @@ const ColorForm = () => {
           <input
             type="text"
             className="form-control m-auto"
-            id="nameInput"
-            style={{width: "300px"}}
+            id="name"
+            name="name"
+            value={values.name}
+            onChange={(e) => onChange(e)}
+            style={{ width: "300px" }}
           />
         </div>
         <div class="mb-3">
@@ -55,8 +79,11 @@ const ColorForm = () => {
           <input
             type="text"
             className="form-control m-auto"
-            id="hexInput"
-            style={{width: "300px"}}
+            id="hex"
+            name="hex"
+            value={values.hex}
+            onChange={(e) => onChange(e)}
+            style={{ width: "300px" }}
           />
         </div>
         <div class="mb-3">
@@ -66,8 +93,11 @@ const ColorForm = () => {
           <input
             type="text"
             className="form-control m-auto"
-            id="rgbInput"
-            style={{width: "300px"}}
+            id="rgb"
+            name="rgb"
+            value={values.rgb}
+            onChange={(e) => onChange(e)}
+            style={{ width: "300px" }}
           />
         </div>
         <div class="mb-3">
@@ -77,11 +107,14 @@ const ColorForm = () => {
           <input
             type="text"
             className="form-control m-auto"
-            id="hslInput"
-            style={{width: "300px"}}
+            id="hsl"
+            name="hsl"
+            value={values.hsl}
+            onChange={(e) => onChange(e)}
+            style={{ width: "300px" }}
           />
         </div>
-        
+
         <button type="submit" class="btn btn-primary">
           Submit
         </button>

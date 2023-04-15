@@ -12,42 +12,36 @@ const ColorForm = ({
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const nextColor = (e) => {
+    e.preventDefault();
+    const newIndex = index + 1;
+    if (newIndex == colors.length) {
+      setIndex(0);
+    } else {
+      setIndex(newIndex);
+    }
+  };
+
+  const prevColor = (e) => {
+    e.preventDefault();
+    const newIndex = index - 1;
+    console.log(newIndex);
+    if (newIndex < 0) {
+      setIndex(colors.length - 1);
+    } else {
+      setIndex(newIndex);
+    }
+  };
+  
   return (
     <div>
-      <div className="input-group mt-2 m-auto" style={{ width: "200px" }}>
-        <button class="btn btn-outline-secondary" type="button">
-          Prev
-        </button>
-        <input
-          type="number"
-          class="form-control"
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          defaultValue={search}
-        />
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          onClick={() => {
-            const newIndex = index + 1;
-            if (newIndex == colors.length) {
-              setIndex(0);
-            } else {
-              setIndex(index + 1);
-            }
-          }}
-        >
-          Next
-        </button>
-      </div>
-
       <form className="container mt-3">
         <label for="colorName" class="form-label">
           Color ID
         </label>
         <div className="input-group mb-3 m-auto" style={{ width: "200px" }}>
-          <button class="btn btn-outline-secondary" type="button">
+          <button class="btn btn-outline-secondary" type="button" onClick={(e) => prevColor(e)}>
             Prev
           </button>
           <input
@@ -61,13 +55,8 @@ const ColorForm = ({
           <button
             class="btn btn-outline-secondary"
             type="button"
-            onClick={() => {
-              const newIndex = index + 1;
-              if (newIndex == colors.length) {
-                setIndex(0);
-              } else {
-                setIndex(index + 1);
-              }
+            onClick={(e) => {
+              nextColor(e);
             }}
           >
             Next

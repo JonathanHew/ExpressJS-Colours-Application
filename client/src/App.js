@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 function App() {
   const [loading, setLoading] = useState(true);
   const [colors, setColors] = useState({});
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(2);
   const [search, setSearch] = useState(0);
   const [values, setValues] = useState({
     id: "",

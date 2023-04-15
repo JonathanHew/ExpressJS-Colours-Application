@@ -17,7 +17,6 @@ function App() {
     rgb: "",
     hsl: "",
   });
-  const [error, setError] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -53,8 +52,6 @@ function App() {
               setValues={setValues}
               index={index}
               setIndex={setIndex}
-              error={error}
-              setError={setError}
             />
           </div>
         </div>

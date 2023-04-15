@@ -7,10 +7,9 @@ const ColorForm = ({
   setValues,
   index,
   setIndex,
-  error,
-  setError,
 }) => {
 
+    const[error, setError] = useState("");
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };

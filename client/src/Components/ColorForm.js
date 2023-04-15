@@ -1,53 +1,55 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import axios from "axios";
-import ColorBox from "./ColorBox";
-axios.defaults.withCredentials = true;
-
-const ColorForm = () => {
-  const [colors, setColors] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [index, setIndex] = useState(0);
-  const [values, setValues] = useState({
-    id: "",
-    name: "",
-    hex: "",
-    rgb: "",
-    hsl: "",
-  });
-
-  useEffect(() => {
-    (async () => {
-      await axios.get("http://localhost:5004/colors/", {}).then((res) => {
-        setColors(res.data.colors);
-        setValues({
-          id: res.data.colors[index].colorId,
-          name: res.data.colors[index].name,
-          hex: res.data.colors[index].hexString,
-          rgb: JSON.stringify(res.data.colors[index].rgb),
-          hsl: JSON.stringify(res.data.colors[index].hsl),
-        });
-      });
-      setLoading(false);
-    })();
-  }, []);
-
+const ColorForm = ({
+  colors,
+  values,
+  setValues,
+  index,
+  setIndex,
+  search,
+  setSearch,
+}) => {
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-
-  return loading ? (
-    <h1>Loading ...</h1>
-  ) : (
-    <div className="text-center ">
-      <h1>Colors Application</h1>
-      <ColorBox hex={colors[index].hexString} />
+  return (
+    <div>
+      <div className="input-group mt-2 m-auto" style={{ width: "200px" }}>
+        <button class="btn btn-outline-secondary" type="button">
+          Prev
+        </button>
+        <input
+          type="number"
+          class="form-control"
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          defaultValue={search}
+        />
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          onClick={() => {
+            const newIndex = index + 1;
+            if (newIndex == colors.length) {
+              setIndex(0);
+            } else {
+              setIndex(index + 1);
+            }
+          }}
+        >
+          Next
+        </button>
+      </div>
 
       <form className="container mt-3">
-        <div className="mb-3">
-          <label for="colorId" class="form-label">
-            Color ID
-          </label>
+        <label for="colorName" class="form-label">
+          Color ID
+        </label>
+        <div className="input-group mb-3 m-auto" style={{ width: "200px" }}>
+          <button class="btn btn-outline-secondary" type="button">
+            Prev
+          </button>
           <input
             type="number"
             className="form-control m-auto"
@@ -55,8 +57,21 @@ const ColorForm = () => {
             name="id"
             value={values.id}
             onChange={(e) => onChange(e)}
-            style={{ width: "300px" }}
           />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onClick={() => {
+              const newIndex = index + 1;
+              if (newIndex == colors.length) {
+                setIndex(0);
+              } else {
+                setIndex(index + 1);
+              }
+            }}
+          >
+            Next
+          </button>
         </div>
         <div class="mb-3">
           <label for="colorName" class="form-label">

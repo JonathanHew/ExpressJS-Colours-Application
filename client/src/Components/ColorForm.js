@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import SearchColor from "./SearchColor";
 
 const ColorForm = ({
   colors,
@@ -6,15 +7,17 @@ const ColorForm = ({
   setValues,
   index,
   setIndex,
-  search,
-  setSearch,
+  error,
+  setError,
 }) => {
+
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const nextColor = (e) => {
     e.preventDefault();
+    setError("");
     const newIndex = index + 1;
     if (newIndex == colors.length) {
       setIndex(0);
@@ -25,23 +28,27 @@ const ColorForm = ({
 
   const prevColor = (e) => {
     e.preventDefault();
+    setError("");
     const newIndex = index - 1;
-    console.log(newIndex);
     if (newIndex < 0) {
       setIndex(colors.length - 1);
     } else {
       setIndex(newIndex);
     }
   };
-  
+
   return (
     <div>
       <form className="container mt-3">
         <label for="colorName" class="form-label">
           Color ID
         </label>
-        <div className="input-group mb-3 m-auto" style={{ width: "200px" }}>
-          <button class="btn btn-outline-secondary" type="button" onClick={(e) => prevColor(e)}>
+        <div className="input-group mb-1 m-auto" style={{ width: "200px" }}>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            onClick={(e) => prevColor(e)}
+          >
             Prev
           </button>
           <input
@@ -62,7 +69,8 @@ const ColorForm = ({
             Next
           </button>
         </div>
-        <div class="mb-3">
+        <SearchColor values={values} colors={colors} setIndex={setIndex} error={error} setError={setError}/>
+        <div class="mt-3 mb-3">
           <label for="colorName" class="form-label">
             Name
           </label>

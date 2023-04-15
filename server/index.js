@@ -1,5 +1,5 @@
 //import colors JSON as object and set incrementer counter
-const colors = require("./data/data.json");
+let colors = require("./data/data.json");
 let counter = colors.length;
 
 // express and cors setup
@@ -50,13 +50,14 @@ app.post("/colors", async (req, res) => {
   const { hexString, rgb, hsl, name } = req.body;
   try {
     if (hexString && rgb && hsl && name) {
-      colors[id] = {
-        colorId: id,
+      const newColor = {
+        colorId: colors.length,
         hexString: hexString,
         rgb: rgb,
         hsl: hsl,
         name: name,
       };
+      colors.push(newColor);
       return res.status(201).json({
         url: `localhost:5004/colors/${id}`,
       });
@@ -100,23 +101,17 @@ app.put("/colors/:id", async (req, res) => {
 app.delete("/colors/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let index;
-    for (let i = 0; i < colors.length; i++) {
-      if (colors[i]) {
-        if (colors[i].colorId == id) {
-          index = i;
-          break;
-        }
-      } else {
-        continue;
-      }
+
+    if (isNaN(id)) {
+      throw new Error("Invalid Color ID!");
     }
-    delete colors[index];
-    if (index) {
-      res.status(200).json("color deleted!");
-    } else {
-      throw new Error("Color not found!");
+
+    let index = colors.findIndex((color) => color.colorId == id);
+    if (index === -1) {
+      throw new Error("Color Not Found!");
     }
+    colors.splice(index, 1); 
+    return res.status(200).json("Color Deleted!");
   } catch (err) {
     return res.status(400).json({
       err: err.message,

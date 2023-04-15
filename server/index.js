@@ -7,8 +7,14 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-//MIDDLEWARE
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000", // Update this to the origin of your React app
+  credentials: true,
+};
+
+
+// middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // assign port 5004 for this server
@@ -17,7 +23,6 @@ app.listen(5004, () => {
 });
 
 //ROUTES
-
 //Gets the list of all colours and their details
 app.get("/colors", async (req, res) => {
   return res.status(200).json({
@@ -110,7 +115,7 @@ app.delete("/colors/:id", async (req, res) => {
     if (index === -1) {
       throw new Error("Color Not Found!");
     }
-    colors.splice(index, 1); 
+    colors.splice(index, 1);
     return res.status(200).json("Color Deleted!");
   } catch (err) {
     return res.status(400).json({

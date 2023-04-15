@@ -3,6 +3,7 @@ import "./App.css";
 import ColorForm from "./Components/ColorForm";
 import ColorBox from "./Components/ColorBox";
 import axios from "axios";
+import AddColor from "./Components/AddColor";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -53,6 +54,11 @@ function App() {
               index={index}
               setIndex={setIndex}
             />
+          </div>
+          <div className="row mb-2">
+            <div className="col">
+              <AddColor />
+            </div>
           </div>
         </div>
       </div>

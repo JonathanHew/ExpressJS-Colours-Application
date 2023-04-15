@@ -1,15 +1,8 @@
 import React, { useState } from "react";
 import SearchColor from "./SearchColor";
 
-const ColorForm = ({
-  colors,
-  values,
-  setValues,
-  index,
-  setIndex,
-}) => {
-
-    const[error, setError] = useState("");
+const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
+  const [error, setError] = useState("");
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -68,7 +61,13 @@ const ColorForm = ({
             Next
           </button>
         </div>
-        <SearchColor values={values} colors={colors} setIndex={setIndex} error={error} setError={setError}/>
+        <SearchColor
+          values={values}
+          colors={colors}
+          setIndex={setIndex}
+          error={error}
+          setError={setError}
+        />
         <div class="mt-3 mb-3">
           <label for="colorName" class="form-label">
             Name
@@ -111,7 +110,7 @@ const ColorForm = ({
             style={{ width: "300px" }}
           />
         </div>
-        <div class="mb-3">
+        <div>
           <label for="colorHSL" class="form-label">
             HSL
           </label>
@@ -125,10 +124,6 @@ const ColorForm = ({
             style={{ width: "300px" }}
           />
         </div>
-
-        <button type="submit" class="btn btn-primary">
-          Submit
-        </button>
       </form>
     </div>
   );

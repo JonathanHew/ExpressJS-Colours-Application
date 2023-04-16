@@ -31,7 +31,37 @@ const AddColor = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body"></div>
+            <div className="modal-body">
+              <form>
+                <div className="mb-3">
+                  <label for="newName" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="newName"
+                    aria-describedby="nameHelp"
+                    required
+                  />
+                  <div id="nameHelp" className="form-text">
+                    Give your new color a name!
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <label for="exampleColorInput" className="form-label">
+                    Color 
+                  </label>
+                  <input
+                    type="color"
+                    className="form-control form-control-color m-auto"
+                    id="exampleColorInput"
+                    value="#563d7c"
+                    title="Choose your color"
+                  />
+                </div>
+              </form>
+            </div>
             <div className="modal-footer">
               <button
                 type="button"

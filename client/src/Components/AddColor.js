@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 const AddColor = () => {
-  const [name, setName] = useState("");
-  const [hex, setHex] = useState("");
   const [values, setValues] = useState({
     hexString: "",
     rgb: {},
@@ -22,6 +20,84 @@ const AddColor = () => {
       name: "",
     });
   };
+
+  const onCreate = async (e) => {
+    e.preventDefault();
+    try {
+      setValues({
+        ...values,
+        rgb: hexToRGB(values.hexString),
+        hsl: hexToHSL(values.hexString),
+      });
+      console.log("Done!");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  function hexToRGB(hex) {
+    // Remove the leading '#' if present
+    const trimmedHex = hex.startsWith("#") ? hex.slice(1) : hex;
+
+    // Ensure the hex string is valid
+    if (trimmedHex.length !== 3 && trimmedHex.length !== 6) {
+      throw new Error("Invalid hex color string");
+    }
+
+    // Expand the short form (e.g. '03F') to the long form (e.g. '0033FF')
+    const longHex =
+      trimmedHex.length === 3
+        ? trimmedHex
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : trimmedHex;
+
+    // Convert the long hex string to an RGB object
+    const r = parseInt(longHex.slice(0, 2), 16);
+    const g = parseInt(longHex.slice(2, 4), 16);
+    const b = parseInt(longHex.slice(4, 6), 16);
+
+    return { r: r, g: g, b: b };
+  }
+
+  function hexToHSL(hex) {
+    const trimmedHex = hex.startsWith("#") ? hex.slice(1) : hex;
+    const longHex =
+      trimmedHex.length === 3
+        ? trimmedHex
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : trimmedHex;
+
+    const r = parseInt(longHex.slice(0, 2), 16) / 255;
+    const g = parseInt(longHex.slice(2, 4), 16) / 255;
+    const b = parseInt(longHex.slice(4, 6), 16) / 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const diff = max - min;
+
+    let h;
+    if (diff === 0) {
+      h = 0;
+    } else if (max === r) {
+      h = ((g - b) / diff) % 6;
+    } else if (max === g) {
+      h = (b - r) / diff + 2;
+    } else {
+      h = (r - g) / diff + 4;
+    }
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+
+    const l = (max + min) / 2;
+
+    const s = diff === 0 ? 0 : diff / (1 - Math.abs(2 * l - 1));
+
+    return { h, s: Math.round(s * 100), l: Math.round(l * 100) };
+  }
 
   return (
     <div>
@@ -85,6 +161,7 @@ const AddColor = () => {
                     value={values.hexString}
                     onChange={(e) => onChange(e)}
                     title="Choose your color"
+                    required
                   />
                 </div>
               </form>
@@ -99,9 +176,9 @@ const AddColor = () => {
                 Close
               </button>
               <button
-                type="button"
+                type="submit"
                 className="btn btn-success"
-                //onClick={(e) => create(e)}
+                onClick={(e) => onCreate(e)}
               >
                 Create
               </button>

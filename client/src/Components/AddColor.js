@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const AddColor = () => {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [values, setValues] = useState({
     hexString: "",
-    rgb: {},
-    hsl: {},
     name: "",
   });
 
@@ -15,23 +17,40 @@ const AddColor = () => {
   const onClose = () => {
     setValues({
       hexString: "",
-      rgb: {},
-      hsl: {},
       name: "",
     });
+    setError("");
+    setSuccess("");
   };
 
   const onCreate = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
     try {
-      setValues({
-        ...values,
-        rgb: hexToRGB(values.hexString),
-        hsl: hexToHSL(values.hexString),
-      });
-      console.log("Done!");
+      if (!values.name || !values.hexString) {
+        throw new Error("Please make sure you select a name and a color!");
+      }
+
+      const hsl = hexToHSL(values.hexString);
+      const rgb = hexToRGB(values.hexString);
+
+      const newColor = {
+        hexString: values.hexString,
+        rgb,
+        hsl,
+        name: values.name,
+      };
+
+      await axios
+        .post("http://localhost:5004/colors/", newColor)
+        .then((res) => {
+          console.log(res.data.url);
+          setSuccess("Color created!");
+        });
     } catch (err) {
       console.error(err.message);
+      setError("Please make sure you select a name and a color!");
     }
   };
 
@@ -112,6 +131,8 @@ const AddColor = () => {
       <div
         className="modal fade"
         id="exampleModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
@@ -164,6 +185,8 @@ const AddColor = () => {
                     required
                   />
                 </div>
+                <div style={{ color: "green" }}>{success}</div>
+                <div style={{ color: "red" }}>{error}</div>
               </form>
             </div>
             <div className="modal-footer">

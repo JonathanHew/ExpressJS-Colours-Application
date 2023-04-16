@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 const AddColor = () => {
+  const [name, setName] = useState("");
+  const [hex, setHex] = useState("");
+  const [values, setValues] = useState({
+    hexString: "",
+    rgb: {},
+    hsl: {},
+    name: "",
+  });
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
   return (
     <div>
       <button
@@ -34,13 +47,16 @@ const AddColor = () => {
             <div className="modal-body">
               <form>
                 <div className="mb-3">
-                  <label for="newName" className="form-label">
+                  <label for="name" className="form-label">
                     Name
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="newName"
+                    id="name"
+                    name="name"
+                    value={values.name}
+                    onChange={(e) => onChange(e)}
                     aria-describedby="nameHelp"
                     required
                   />
@@ -50,13 +66,15 @@ const AddColor = () => {
                 </div>
                 <div className="mb-3">
                   <label for="exampleColorInput" className="form-label">
-                    Color 
+                    Color
                   </label>
                   <input
                     type="color"
                     className="form-control form-control-color m-auto"
                     id="exampleColorInput"
-                    value="#563d7c"
+                    name="hexString"
+                    value={values.hexString}
+                    onChange={(e) => onChange(e)}
                     title="Choose your color"
                   />
                 </div>

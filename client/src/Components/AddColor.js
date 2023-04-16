@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const AddColor = () => {
+const AddColor = ({ colors, setIndex }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [values, setValues] = useState({
@@ -46,7 +46,7 @@ const AddColor = () => {
         .post("http://localhost:5004/colors/", newColor)
         .then((res) => {
           console.log(res.data.url);
-          setSuccess("Color created!");
+          setSuccess(`Color created with ID: ${res.data.colorId}`);
         });
     } catch (err) {
       console.error(err.message);

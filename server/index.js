@@ -50,7 +50,6 @@ app.get("/colors/:id", (req, res) => {
 
 //Creates a new colour with the details provided. Response contains the URI for this newly created resource
 app.post("/colors", async (req, res) => {
-  console.log(req.body);
   const id = counter;
   counter++;
   const { hexString, rgb, hsl, name } = req.body;
@@ -66,6 +65,7 @@ app.post("/colors", async (req, res) => {
       colors.push(newColor);
       return res.status(201).json({
         url: `localhost:5004/colors/${id}`,
+        colorId: id,
       });
     } else {
       throw new Error("Please do not leave any field blank!");

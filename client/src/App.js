@@ -57,7 +57,7 @@ function App() {
           </div>
           <div className="row mb-2">
             <div className="col">
-              <AddColor />
+              <AddColor colors={colors} setIndex={setIndex} />
             </div>
           </div>
         </div>

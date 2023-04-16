@@ -14,6 +14,15 @@ const AddColor = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+  const onClose = () => {
+    setValues({
+      hexString: "",
+      rgb: {},
+      hsl: {},
+      name: "",
+    });
+  };
+
   return (
     <div>
       <button
@@ -85,7 +94,7 @@ const AddColor = () => {
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
-                //onClick={() => onClose()}
+                onClick={() => onClose()}
               >
                 Close
               </button>

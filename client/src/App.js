@@ -6,6 +6,7 @@ import axios from "axios";
 import AddColor from "./Components/AddColor";
 import DeleteColor from "./Components/DeleteColor";
 import EditColor from "./Components/EditColor";
+import SetBackground from "./Components/SetBackground";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -83,7 +84,7 @@ function App() {
               />
             </div>
             <div className="col-1">
-              <button className="btn btn-primary">Set</button>
+              <SetBackground />
             </div>
             <div className="col-4"></div>
           </div>

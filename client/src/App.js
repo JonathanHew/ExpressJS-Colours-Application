@@ -25,6 +25,17 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      await axios
+        .get("http://localhost:5004/get-background-color")
+        .then((res) => {
+          console.log(res.data);
+          setBackgroundColor(res.data);
+        });
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       await axios.get("http://localhost:5004/colors/", {}).then((res) => {
         setColors(res.data.colors);
         setValues({
@@ -39,6 +50,10 @@ function App() {
       setLoading(false);
     })();
   }, [index]);
+
+  function setBackgroundColor(hexString) {
+    document.body.style.backgroundColor = hexString;
+  }
 
   return loading ? (
     <Fragment>
@@ -84,7 +99,7 @@ function App() {
               />
             </div>
             <div className="col-1">
-              <SetBackground colors={colors} index={index}/>
+              <SetBackground colors={colors} index={index} />
             </div>
             <div className="col-4"></div>
           </div>

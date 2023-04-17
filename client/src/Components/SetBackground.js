@@ -1,8 +1,14 @@
 import React from "react";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 const SetBackground = ({ colors, index }) => {
-  const onSet = (e) => {
-    console.log(colors[index].hexString);
+  const onSet = async (e) => {
+    try {
+      await axios.post('http://localhost:5004/set-background-color', { backgroundColor: colors[index].hexString});
+    } catch (err) {
+      console.error(err.message);
+    }
     setBackgroundColor(colors[index].hexString)
   };
 

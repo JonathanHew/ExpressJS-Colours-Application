@@ -6,6 +6,7 @@ let nextId = colors.length;
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 
 const corsOptions = {
   origin: "http://localhost:3000", // Update this to the origin of your React app
@@ -15,6 +16,7 @@ const corsOptions = {
 // middleware
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 // assign port 5004 for this server
 app.listen(5004, () => {
@@ -123,4 +125,17 @@ app.delete("/colors/:id", async (req, res) => {
       err: err.message,
     });
   }
+});
+
+// Set Background Color
+app.post('/set-background-color', (req, res) => {
+  const { backgroundColor } = req.body;
+  res.cookie('backgroundColor', backgroundColor);
+  res.status(200).send('Background color set');
+});
+
+// Retrieve background Color
+app.get('/get-background-color', (req, res) => {
+  const backgroundColor = req.cookies.backgroundColor || '#FFFFFF';
+  res.status(200).send(backgroundColor);
 });

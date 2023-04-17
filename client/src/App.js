@@ -84,7 +84,7 @@ function App() {
               />
             </div>
             <div className="col-1">
-              <SetBackground />
+              <SetBackground colors={colors} index={index}/>
             </div>
             <div className="col-4"></div>
           </div>

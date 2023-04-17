@@ -3,21 +3,27 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const DeleteColor = ({ index, colors, setColors, setIndex }) => {
-
-  const onDelete = async(e) => {
+  const onDelete = async (e) => {
     e.preventDefault();
     const colorId = colors[index].colorId;
     try {
-        await axios
+      await axios
         .delete(`http://localhost:5004/colors/${colorId}`, {})
         .then((res) => {
           console.log(res);
           setColors(res.data.colors);
-          console.log("Colors set!");
-          setIndex(index-1);
-        })
+          console.log(index);
+          if (index == 0) {
+            const newIndex = colors.length -2;
+            setIndex(newIndex);
+            console.log(newIndex);
+          } else {
+            const newIndex = index-1;
+            setIndex(newIndex);
+          }
+        });
     } catch (err) {
-        console.error(err.message);
+      console.error(err.message);
     }
   };
   return (

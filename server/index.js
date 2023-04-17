@@ -139,3 +139,16 @@ app.get('/get-background-color', (req, res) => {
   const backgroundColor = req.cookies.backgroundColor || '#FFFFFF';
   res.status(200).send(backgroundColor);
 });
+
+// Set Index of Last Color
+app.post('/set-index', (req, res) => {
+  const { index } = req.body;
+  res.cookie('index', index);
+  res.status(200).send('Index set');
+});
+
+// Retrieve Index of Last Color
+app.get('/get-index', (req, res) => {
+  const index = req.cookies.index || 0;
+  res.status(200).send(index);
+});

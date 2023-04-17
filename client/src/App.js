@@ -5,6 +5,7 @@ import ColorBox from "./Components/ColorBox";
 import axios from "axios";
 import AddColor from "./Components/AddColor";
 import DeleteColor from "./Components/DeleteColor";
+import EditColor from "./Components/EditColor";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -65,7 +66,7 @@ function App() {
               <DeleteColor index={index} colors={colors} setColors={setColors} setIndex={setIndex}/>
             </div>
             <div className="col-1">
-              <button className="btn btn-primary">Edit</button>
+              <EditColor colors={colors} index={index} values={values}/>
             </div>
             <div className="col-1">
               <button className="btn btn-primary">Set</button>

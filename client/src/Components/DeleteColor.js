@@ -10,15 +10,13 @@ const DeleteColor = ({ index, colors, setColors, setIndex }) => {
       await axios
         .delete(`http://localhost:5004/colors/${colorId}`, {})
         .then((res) => {
-          console.log(res);
           setColors(res.data.colors);
-          console.log(index);
           if (index == 0) {
-            const newIndex = colors.length -2;
+            const newIndex = colors.length - 2;
             setIndex(newIndex);
             console.log(newIndex);
           } else {
-            const newIndex = index-1;
+            const newIndex = index - 1;
             setIndex(newIndex);
           }
         });

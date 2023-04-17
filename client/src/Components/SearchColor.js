@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const SearchColor = ({ values, colors, setIndex, error, setError }) => {
+const SearchColor = ({ values, colors, setIndex, error, setError, setSuccess }) => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -14,6 +14,7 @@ const SearchColor = ({ values, colors, setIndex, error, setError }) => {
           );
           setIndex(newIndex);
           setError("");
+          setSuccess("");
         });
     } catch (err) {
       console.log(err.message);

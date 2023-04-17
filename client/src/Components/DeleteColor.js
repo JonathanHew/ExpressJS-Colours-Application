@@ -2,8 +2,9 @@ import React from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const DeleteColor = ({ index, colors, setColors, setIndex }) => {
+const DeleteColor = ({ index, colors, setColors, setIndex, setSuccess }) => {
   const onDelete = async (e) => {
+    setSuccess("");
     e.preventDefault();
     const colorId = colors[index].colorId;
     try {

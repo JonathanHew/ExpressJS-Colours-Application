@@ -13,6 +13,7 @@ function App() {
   const [colors, setColors] = useState({});
   const [index, setIndex] = useState(2);
   const [search, setSearch] = useState(0);
+  const [success, setSuccess] = useState("");
   const [values, setValues] = useState({
     id: "",
     name: "",
@@ -55,18 +56,31 @@ function App() {
               setValues={setValues}
               index={index}
               setIndex={setIndex}
+              setSuccess={setSuccess}
             />
           </div>
+          <div style={{ color: "green" }}>{success}</div>
           <div className="row mb-3">
             <div className="col-4"></div>
             <div className="col-1">
-              <AddColor colors={colors} setColors={setColors} setIndex={setIndex} />
+              <AddColor setColors={setColors} />
             </div>
             <div className="col-1">
-              <DeleteColor index={index} colors={colors} setColors={setColors} setIndex={setIndex}/>
+              <DeleteColor
+                index={index}
+                colors={colors}
+                setColors={setColors}
+                setIndex={setIndex}
+                setSuccess={setSuccess}
+              />
             </div>
             <div className="col-1">
-              <EditColor colors={colors} index={index} values={values}/>
+              <EditColor
+                colors={colors}
+                index={index}
+                values={values}
+                setSuccess={setSuccess}
+              />
             </div>
             <div className="col-1">
               <button className="btn btn-primary">Set</button>

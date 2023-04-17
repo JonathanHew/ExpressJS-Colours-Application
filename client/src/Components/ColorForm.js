@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchColor from "./SearchColor";
 
-const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
+const ColorForm = ({ colors, values, setValues, index, setIndex, setSuccess }) => {
   const [error, setError] = useState("");
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -10,6 +10,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
   const nextColor = (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     const newIndex = index + 1;
     if (newIndex == colors.length) {
       setIndex(0);
@@ -21,6 +22,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
   const prevColor = (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
     const newIndex = index - 1;
     if (newIndex < 0) {
       setIndex(colors.length - 1);
@@ -67,6 +69,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
           setIndex={setIndex}
           error={error}
           setError={setError}
+          setSuccess={setSuccess}
         />
         <div class="mt-1 mb-1">
           <label for="colorName" class="form-label">

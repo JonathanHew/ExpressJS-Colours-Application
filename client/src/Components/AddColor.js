@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-const AddColor = ({ colors, setColors, setIndex }) => {
+const AddColor = ({ setColors }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [values, setValues] = useState({
@@ -48,7 +48,7 @@ const AddColor = ({ colors, setColors, setIndex }) => {
           console.log(res.data.url);
           setColors(res.data.colors);
           setSuccess(`Color created with ID: ${res.data.colorId}`);
-        })
+        });
     } catch (err) {
       console.error(err.message);
       setError("Please make sure you select a name and a color!");
@@ -149,7 +149,9 @@ const AddColor = ({ colors, setColors, setIndex }) => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                onClick={() => {onClose()}}
+                onClick={() => {
+                  onClose();
+                }}
               ></button>
             </div>
             <div className="modal-body">

@@ -25,16 +25,16 @@ function App() {
 
   useEffect(() => {
     (async () => {
+      await axios.get("http://localhost:5004/get-index").then((res) => {
+        console.log(res.data);
+        setIndex(res.data);
+      });
+
       await axios
         .get("http://localhost:5004/get-background-color")
         .then((res) => {
           setBackgroundColor(res.data);
         });
-
-      await axios.get("http://localhost:5004/get-index").then((res) => {
-        console.log(res.data);
-        setIndex(res.data);
-      });
     })();
   }, []);
 

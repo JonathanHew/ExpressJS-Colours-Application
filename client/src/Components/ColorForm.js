@@ -68,7 +68,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
           error={error}
           setError={setError}
         />
-        <div class="mt-3 mb-3">
+        <div class="mt-1 mb-1">
           <label for="colorName" class="form-label">
             Name
           </label>
@@ -82,7 +82,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
             style={{ width: "300px" }}
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-1">
           <label for="colorHex" class="form-label">
             Hex
           </label>
@@ -96,7 +96,7 @@ const ColorForm = ({ colors, values, setValues, index, setIndex }) => {
             style={{ width: "300px" }}
           />
         </div>
-        <div class="mb-3">
+        <div class="mb-1">
           <label for="colorRGB" class="form-label">
             RGB
           </label>

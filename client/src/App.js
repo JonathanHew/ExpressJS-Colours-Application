@@ -4,6 +4,7 @@ import ColorForm from "./Components/ColorForm";
 import ColorBox from "./Components/ColorBox";
 import axios from "axios";
 import AddColor from "./Components/AddColor";
+import DeleteColor from "./Components/DeleteColor";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -55,10 +56,21 @@ function App() {
               setIndex={setIndex}
             />
           </div>
-          <div className="row mb-2">
-            <div className="col">
-              <AddColor colors={colors} setIndex={setIndex} />
+          <div className="row mb-3">
+            <div className="col-4"></div>
+            <div className="col-1">
+              <AddColor colors={colors} setColors={setColors} setIndex={setIndex} />
             </div>
+            <div className="col-1">
+              <DeleteColor />
+            </div>
+            <div className="col-1">
+              <button className="btn btn-primary">Edit</button>
+            </div>
+            <div className="col-1">
+              <button className="btn btn-primary">Set</button>
+            </div>
+            <div className="col-4"></div>
           </div>
         </div>
       </div>

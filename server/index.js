@@ -66,6 +66,7 @@ app.post("/colors", async (req, res) => {
       return res.status(201).json({
         url: `localhost:5004/colors/${id}`,
         colorId: id,
+        colors: colors,
       });
     } else {
       throw new Error("Please do not leave any field blank!");

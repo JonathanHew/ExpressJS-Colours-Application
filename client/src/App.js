@@ -62,7 +62,7 @@ function App() {
               <AddColor colors={colors} setColors={setColors} setIndex={setIndex} />
             </div>
             <div className="col-1">
-              <DeleteColor index={index} colors={colors}/>
+              <DeleteColor index={index} colors={colors} setColors={setColors} setIndex={setIndex}/>
             </div>
             <div className="col-1">
               <button className="btn btn-primary">Edit</button>

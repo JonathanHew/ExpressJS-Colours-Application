@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 function App() {
   const [loading, setLoading] = useState(true);
   const [colors, setColors] = useState({});
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState(0);
   const [search, setSearch] = useState(0);
   const [success, setSuccess] = useState("");
   const [values, setValues] = useState({
@@ -28,9 +28,13 @@ function App() {
       await axios
         .get("http://localhost:5004/get-background-color")
         .then((res) => {
-          console.log(res.data);
           setBackgroundColor(res.data);
         });
+
+      await axios.get("http://localhost:5004/get-index").then((res) => {
+        console.log(res.data);
+        setIndex(res.data);
+      });
     })();
   }, []);
 
@@ -47,6 +51,7 @@ function App() {
         });
         setSearch(res.data.colors[index].colorId);
       });
+      await axios.post("http://localhost:5004/set-index/", { index: index });
       setLoading(false);
     })();
   }, [index]);

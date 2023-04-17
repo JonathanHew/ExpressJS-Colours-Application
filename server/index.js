@@ -1,6 +1,6 @@
 //import colors JSON as object and set incrementer counter
 let colors = require("./data/data.json");
-let counter = colors.length;
+let nextId = colors.length;
 
 // express and cors setup
 const express = require("express");
@@ -49,22 +49,22 @@ app.get("/colors/:id", (req, res) => {
 
 //Creates a new colour with the details provided. Response contains the URI for this newly created resource
 app.post("/colors", async (req, res) => {
-  const id = counter;
-  counter++;
   const { hexString, rgb, hsl, name } = req.body;
   try {
     if (hexString && rgb && hsl && name) {
       const newColor = {
-        colorId: colors.length,
+        colorId: nextId,
         hexString: hexString,
         rgb: rgb,
         hsl: hsl,
         name: name,
       };
       colors.push(newColor);
+      nextId++;
+
       return res.status(201).json({
-        url: `localhost:5004/colors/${id}`,
-        colorId: id,
+        url: `localhost:5004/colors/${nextId - 1}`,
+        colorId: nextId-1,
         colors: colors,
       });
     } else {

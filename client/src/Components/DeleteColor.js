@@ -6,7 +6,6 @@ const DeleteColor = ({ index, colors }) => {
 
   const onDelete = async(e) => {
     e.preventDefault();
-    console.log(index);
     const colorId = colors[index].colorId;
     try {
         await axios

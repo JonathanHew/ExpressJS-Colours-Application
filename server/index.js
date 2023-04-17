@@ -12,7 +12,6 @@ const corsOptions = {
   credentials: true,
 };
 
-
 // middleware
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -118,7 +117,7 @@ app.delete("/colors/:id", async (req, res) => {
       throw new Error("Color Not Found!");
     }
     colors.splice(index, 1);
-    return res.status(200).json("Color Deleted!");
+    return res.status(200).json({ msg: "Color Deleted!", colors: colors });
   } catch (err) {
     return res.status(400).json({
       err: err.message,
